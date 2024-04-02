@@ -25,5 +25,3 @@ dist-ssr
 
 # API keys and other environment setup
 .env
-
-src/assets
