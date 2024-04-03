@@ -10,8 +10,11 @@ import {
 import './RestroomPin.css'
 import RestroomPortal from './RestroomPortal';
 
-function RestroomPin({ restroomLocation }) {
+function RestroomPin({ restroom }) {
   const [showRestroomPortal, setShowRestroomPortal] = useState(false);
+
+  const restroomLocation = restroom.location;
+
   const handlePinClick = () => {
     setShowRestroomPortal(true);
   }
@@ -29,6 +32,7 @@ function RestroomPin({ restroomLocation }) {
       {showRestroomPortal && createPortal(
         <RestroomPortal
           onClose={() => setShowRestroomPortal(false)}
+          restroom={restroom}
         />,
         document.getElementById('root'),
       )}
@@ -37,7 +41,7 @@ function RestroomPin({ restroomLocation }) {
 }
 
 RestroomPin.propTypes = {
-  restroomLocation: PropTypes.object.isRequired
+  restroom: PropTypes.object.isRequired
 };
 
 export default RestroomPin

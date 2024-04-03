@@ -1,16 +1,38 @@
-import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './RestroomPortal.css';
+import RestroomDetails from './RestroomDetails.jsx';
+import RestroomRate from './RestroomRate.jsx';
 
-function RestroomPortal({ onClose }) {
+function RestroomPortal({ onClose, restroom }) {
+  const [portalView, setPortalView] = useState('details');
+  const handleRateClick = () => {
+    setPortalView('rate');
+  }
   return (
+    <>{portalView === 'details' && (
     <dialog open className="restroom-portal">
-      <h2 className="restroom-portal__title">Restroom Information</h2>
-      <button className="restroom-portal__close-button" onClick={onClose}>
+      <RestroomDetails restroom={restroom} />
+      <button className="restroom-portal__button" onClick={handleRateClick}>
+        Rate Cleanliness and/or Update Details
+      </button>
+      <br/>
+      <button className="restroom-portal__button" onClick={onClose}>
         Close
       </button>
     </dialog>
-  );
+    )}
+    {portalView === 'rate' && (
+      <dialog open className="restroom-portal">
+        <h2>Rate Cleanliness and/or Update Details</h2>
+        <RestroomRate restroom={restroom} onClose={onClose}/>
+        <button className="restroom-portal__button" onClick={onClose}>
+          Close
+        </button>
+      </dialog>
+    )}
+  </>
+  )
 }
 
 export default RestroomPortal;
