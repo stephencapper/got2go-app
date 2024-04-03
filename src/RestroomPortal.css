@@ -1,0 +1,15 @@
+.restroom-portal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin:0;
+  border-radius: 1em;
+  border-color: #ec96a4;
+  color: #9a9eab;
+  background-color: #242424;
+}
+
+.restroom-portal__close-button {
+  color: #ec96a4;
+}

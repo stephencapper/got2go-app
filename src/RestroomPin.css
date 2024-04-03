@@ -1,0 +1,17 @@
+.map {
+  width: 90vw;
+  height: 50vh;
+  margin: 2em 0;
+}
+
+.pin {
+  background: #22ccff;
+  border-color: #1e89a1;
+}
+
+.restroom-icon {
+  margin-top: 0.5em;
+  width: 2.3em;
+  height: 2.3em;
+  color: #dfe166;
+}

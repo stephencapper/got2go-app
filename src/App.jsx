@@ -1,11 +1,40 @@
-import React from 'react'
-
+import React from 'react';
 import {APIProvider, Map} from '@vis.gl/react-google-maps';
+import restroomLogo from './assets/restroom-svgrepo-com.svg';
 
-import restroomLogo from './assets/restroom-svgrepo-com.svg'
+import RestroomMap from './RestroomMap';
+
 import './App.css'
 
 function App() {
+  const restrooms = [
+    {
+      _id: '1',
+      location: {lat: 37.85605, lng: -122.2064},
+      category: 'Public',
+      customersOnly: false,
+      toiletType: 'Chemical',
+      handicapAccessible: true,
+      keyRequired: false,
+      hours: '24/7',
+      cleanliness: 2,
+      toiletPaper: true,
+      handwash: ['none']
+    },
+    {
+      _id: '2',
+      location: {lat: 37.85605, lng: -122.2064},
+      category: 'Coffee Shop',
+      customersOnly: true,
+      toiletType: 'Flush',
+      handicapAccessible: true,
+      keyRequired: false,
+      hours: 'Mon-Fri 5am-6:30pm, Sat 5:30am-6:30pm, Sun 6am-6:30pm',
+      cleanliness: 4,
+      toiletPaper: true,
+      handwash: ['hot water', 'soap', 'hand dryer']
+    }
+  ];
   return (
     <>
       <div>
@@ -17,17 +46,9 @@ function App() {
           The app for sharing and finding restrooms
         </p>
       </div>
-      <APIProvider apiKey={process.env.GOOGLE_MAPS_API_KEY}>
-        <Map
-          className="map"
-          defaultCenter={{lat: 37.8611216, lng: -122.2357803}}
-          defaultZoom={13}
-          gestureHandling={'greedy'}
-          disableDefaultUI={true}
-        />
-      </APIProvider>
+      <RestroomMap />
       <p className="information">
-        Click on a restroom to find more information
+        Click on a restroom for more information
       </p>
     </>
   )
