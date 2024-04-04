@@ -11,6 +11,8 @@ function App() {
   const [showRestroomPortal, setShowRestroomPortal] = useState(false);
   const [portalRestroom, setPortalRestroom] = useState(null);
   const [portalView, setPortalView] = useState('details');
+  const [clickToAdd, setClickToAdd] = useState(false);
+  const [addLocation, setAddLocation] = useState(null);
 
   const onOpen = () => {
     setShowRestroomPortal(true);
@@ -63,13 +65,22 @@ function App() {
           The app for sharing and finding restrooms
         </p>
         <button onClick={()=>{
-          setPortalView('add');
+          setPortalView('addLocation');
           onOpen();
           }}>
           Add a restroom
         </button>
       </div>
-      <RestroomMap restrooms={restrooms} mapLocation={mapLocation} setPortalRestroom={setPortalRestroom} setPortalView={setPortalView} setShowRestroomPortal={setShowRestroomPortal}/>
+      <RestroomMap
+        restrooms={restrooms}
+        mapLocation={mapLocation}
+        setPortalRestroom={setPortalRestroom}
+        setPortalView={setPortalView}
+        setShowRestroomPortal={setShowRestroomPortal}
+        clickToAdd={clickToAdd}
+        setClickToAdd={setClickToAdd}
+        setAddLocation={setAddLocation}
+      />
       <p className="information">
         Click on a restroom for more information
       </p>
@@ -80,6 +91,8 @@ function App() {
           portalRestroom={portalRestroom}
           portalView={portalView}
           setPortalView={setPortalView}
+          setClickToAdd={setClickToAdd}
+          addLocation={addLocation}
         />,
         document.getElementById('root'),
       )}

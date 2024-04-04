@@ -1,13 +1,28 @@
 import { useState } from 'react';
 
-const RestroomRate = ({ restroom, onClose }) => {
-  const [restroomUpdate, setRestroomUpdate] = useState(restroom);
+const RestroomAdd = ({ onClose, setClickToAdd, addLocation }) => {
 
-  const handleUpdateSubmit = (event) => {
+  const defaultRestroom = {
+    name: '',
+    location: addLocation,
+    category: 'Public',
+    toiletType: 'Flush',
+    accessible: false,
+    keyRequired: false,
+    genders: [],
+    hours: '',
+    cleanliness: 3,
+    toiletPaper: false,
+    handwash: []
+  };
+
+  const [restroomAdd, setRestroomAdd] = useState(defaultRestroom);
+
+  const handleAddSubmit = (event) => {
     event.preventDefault();
-    console.log('Form submitted');
+    console.log('Form submitted: ', restroomAdd);
     onClose();
-  }
+  };
 
   const genderIcons = {
     'Male': '♂',
@@ -52,36 +67,32 @@ const RestroomRate = ({ restroom, onClose }) => {
   ]
 
   return (
-    <form onSubmit={handleUpdateSubmit}>
-      <h2>{restroomUpdate.name}</h2>
+    <form onSubmit={handleAddSubmit}>
+      <h2>{restroomAdd.name}</h2>
       <p>
-        <label htmlFor="cleanliness">Rate Cleanliness:</label>
-          {Object.entries(cleanlinessIcons).map(([rating, icon]) => (
-            <label key={rating}>
-              <input
-                type="radio"
-                name="cleanliness"
-                value={rating}
-                checked={restroomUpdate.cleanliness === rating}
-                onChange={(event) => setRestroomUpdate({ ...restroomUpdate, cleanliness: event.target.value })}
-              />
-              {icon}
-            </label>
-          ))}
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          value={restroomAdd.name}
+          onChange={(event) => setRestroomAdd({ ...restroomAdd, name: event.target.value })}
+        />
+      </p>
+      <p>
+        Location: {restroomAdd.location.lat}, {restroomAdd.location.lng}
       </p>
       <p>
         <span role="img" aria-label="Location">📍</span>
-        <select value={restroomUpdate.category} onChange={(event) => setRestroomUpdate({
-          ...restroomUpdate,
+        <select value={restroomAdd.category} onChange={(event) => setRestroomAdd({
+          ...restroomAdd,
           category: event.target.value,
-          customersOnly: event.target.value.slice(0,9) !== 'Business:' ? false : restroomUpdate.customersOnly
+          customersOnly: event.target.value.slice(0,9) !== 'Business:' ? false : restroomAdd.customersOnly
         })}>
           {categories.map((category) => (
             <option key={category} value={category}>{category}</option>
           ))}
         </select>
-        {restroomUpdate.category.slice(0,9) === 'Business:' &&
-          <select value={restroomUpdate.customersOnly} onChange={(event) => setRestroomUpdate({ ...restroomUpdate, customersOnly: event.target.value })}>
+        {restroomAdd.category.slice(0,9) === 'Business:' &&
+          <select value={restroomAdd.customersOnly} onChange={(event) => setRestroomAdd({ ...restroomAdd, customersOnly: event.target.value })}>
             <option value={true}>Customers Only</option>
             <option value={false}>Non-Customers Welcome</option>
           </select>
@@ -89,7 +100,7 @@ const RestroomRate = ({ restroom, onClose }) => {
       </p>
       <p>
         <span role="img" aria-label="Toilet Type">🚽 </span>
-        <select value={restroomUpdate.toiletType} onChange={(event) => setRestroomUpdate({ ...restroomUpdate, toiletType: event.target.value })}>
+        <select value={restroomAdd.toiletType} onChange={(event) => setRestroomAdd({ ...restroomAdd, toiletType: event.target.value })}>
           {toiletTypes.map((type) => (
             <option key={type} value={type}>{type}</option>
           ))}
@@ -103,17 +114,17 @@ const RestroomRate = ({ restroom, onClose }) => {
             <input
               type="checkbox"
               value={gender}
-              checked={restroomUpdate.genders.includes(gender)}
+              checked={restroomAdd.genders.includes(gender)}
               onChange={(event) => {
                 if (event.target.checked) {
-                  setRestroomUpdate({
-                    ...restroomUpdate,
-                    genders: [...restroomUpdate.genders, gender]
+                  setRestroomAdd({
+                    ...restroomAdd,
+                    genders: [...restroomAdd.genders, gender]
                   });
                 } else {
-                  setRestroomUpdate({
-                    ...restroomUpdate,
-                    genders: restroomUpdate.genders.filter((g) => g !== gender)
+                  setRestroomAdd({
+                    ...restroomAdd,
+                    genders: restroomAdd.genders.filter((g) => g !== gender)
                   });
                 }
               }}
@@ -124,7 +135,7 @@ const RestroomRate = ({ restroom, onClose }) => {
       </p>
       <p>
         <span role="img" aria-label="Accessible">♿ </span>
-        <select value={restroomUpdate.accessible} onChange={(event) => setRestroomUpdate({ ...restroomUpdate, accessible: event.target.value })}>
+        <select value={restroomAdd.accessible} onChange={(event) => setRestroomAdd({ ...restroomAdd, accessible: event.target.value })}>
           <option value={true}>Accessible</option>
           <option value={false}>No Accessible Restroom</option>
         </select>
@@ -133,8 +144,8 @@ const RestroomRate = ({ restroom, onClose }) => {
         <span role="img" aria-label="Hours">🕰️</span>
         <input
           type="text"
-          value={restroomUpdate.hours}
-          onChange={(event) => setRestroomUpdate({ ...restroomUpdate, hours: event.target.value })}
+          value={restroomAdd.hours}
+          onChange={(event) => setRestroomAdd({ ...restroomAdd, hours: event.target.value })}
         />
       </p>
       <p>
@@ -144,17 +155,17 @@ const RestroomRate = ({ restroom, onClose }) => {
             <input
               type="checkbox"
               value={option}
-              checked={restroomUpdate.handwash.includes(option)}
+              checked={restroomAdd.handwash.includes(option)}
               onChange={(event) => {
                 if (event.target.checked) {
-                  setRestroomUpdate({
-                    ...restroomUpdate,
-                    handwash: [...restroomUpdate.handwash, option]
+                  setRestroomAdd({
+                    ...restroomAdd,
+                    handwash: [...restroomAdd.handwash, option]
                   });
                 } else {
-                  setRestroomUpdate({
-                    ...restroomUpdate,
-                    handwash: restroomUpdate.handwash.filter((h) => h !== option)
+                  setRestroomAdd({
+                    ...restroomAdd,
+                    handwash: restroomAdd.handwash.filter((h) => h !== option)
                   });
                 }
               }}
@@ -164,14 +175,29 @@ const RestroomRate = ({ restroom, onClose }) => {
         ))}
       </p>
       <p>
-        <select value={restroomUpdate.toiletPaper} onChange={(event) => setRestroomUpdate({ ...restroomUpdate, toiletPaper: event.target.value })}>
+        <select value={restroomAdd.toiletPaper} onChange={(event) => setRestroomAdd({ ...restroomAdd, toiletPaper: event.target.value })}>
           <option value={true}>🧻 Toilet Paper Available</option>
           <option value={false}>🚫🧻 Toilet Paper Unavailable</option>
         </select>
+      </p>
+      <p>
+        <label htmlFor="cleanliness">Rate Cleanliness:</label>
+          {Object.entries(cleanlinessIcons).map(([rating, icon]) => (
+            <label key={rating}>
+              <input
+                type="radio"
+                name="cleanliness"
+                value={rating}
+                checked={restroomAdd.cleanliness === rating}
+                onChange={(event) => setRestroomAdd({ ...restroomAdd, cleanliness: event.target.value })}
+              />
+              {icon}
+            </label>
+          ))}
       </p>
       <button type="submit">Submit</button>
     </form>
   );
 };
 
-export default RestroomRate;
+export default RestroomAdd;

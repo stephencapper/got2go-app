@@ -4,8 +4,18 @@ import './RestroomPortal.css';
 import RestroomDetails from './RestroomDetails.jsx';
 import RestroomRate from './RestroomRate.jsx';
 import RestroomAdd from './RestroomAdd.jsx';
+import RestroomAddLocation from './RestroomAddLocation.jsx';
 
-function RestroomPortal({ onClose, restroom, setPortalView, portalView}) {
+function RestroomPortal(
+  {
+    onClose,
+    restroom,
+    setPortalView,
+    portalView,
+    setClickToAdd,
+    addLocation
+  }
+) {
   const handleRateClick = () => {
     setPortalView('rate');
   }
@@ -34,7 +44,16 @@ function RestroomPortal({ onClose, restroom, setPortalView, portalView}) {
     {portalView === 'add' && (
       <dialog open className="restroom-portal">
         <h2>Add New Restroom</h2>
-        <RestroomAdd onClose={onClose}/>
+        <RestroomAdd onClose={onClose} addLocation={addLocation}/>
+        <button className="restroom-portal__button" onClick={onClose}>
+          Close
+        </button>
+      </dialog>
+    )}
+    {portalView === 'addLocation' && (
+      <dialog open className="restroom-portal">
+        <h2>Add New Restroom</h2>
+        <RestroomAddLocation onClose={onClose} setClickToAdd={setClickToAdd} setPortalView={setPortalView}/>
         <button className="restroom-portal__button" onClick={onClose}>
           Close
         </button>
