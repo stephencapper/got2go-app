@@ -7,7 +7,6 @@ const app = express();
 app.use(express.json());
 
 app.post('/restrooms', (req, res) => {
-  console.log(req.body)
   const restroom = new Restroom(req.body)
   restroom.save()
     .then(()=>(res.status(201).send()))

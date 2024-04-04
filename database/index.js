@@ -5,11 +5,6 @@ const DB_USER = process.env.DB_USER;
 const DB_PWD = process.env.DB_PWD;
 const DB_AUTH_DB = process.env.DB_AUTH_DB;
 
-console.log(DB_USER);
-console.log(DB_PWD);
-console.log(DB_AUTH_DB);
-
-
 const connection = mongoose.connect('mongodb://127.0.0.1:27017/got2go', {
   user: DB_USER,
   pass: DB_PWD,

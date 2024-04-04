@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { postRestroom } from './models/models';
 
-const RestroomAdd = ({ onClose, setClickToAdd, addLocation }) => {
+const RestroomAdd = ({ onClose, addLocation, loadRestrooms }) => {
 
   const defaultRestroom = {
     name: '',
@@ -21,7 +22,15 @@ const RestroomAdd = ({ onClose, setClickToAdd, addLocation }) => {
   const handleAddSubmit = (event) => {
     event.preventDefault();
     console.log('Form submitted: ', restroomAdd);
-    onClose();
+    postRestroom(restroomAdd)
+      .then(() => {
+        loadRestrooms();
+        setRestroomAdd(defaultRestroom);
+        onClose();
+      })
+      .catch((error) => {
+        console.log('Error: ', error);
+      });
   };
 
   const genderIcons = {

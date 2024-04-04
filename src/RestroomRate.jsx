@@ -1,12 +1,19 @@
 import { useState } from 'react';
+import { putRestroom } from './models/models';
 
-const RestroomRate = ({ restroom, onClose }) => {
+const RestroomRate = ({ restroom, onClose, loadRestrooms }) => {
   const [restroomUpdate, setRestroomUpdate] = useState(restroom);
 
   const handleUpdateSubmit = (event) => {
     event.preventDefault();
-    console.log('Form submitted');
-    onClose();
+    putRestroom(restroomUpdate)
+      .then(() => {
+        loadRestrooms();
+        onClose()
+      })
+      .catch((error) => {
+        console.log('Error: ', error);
+      });
   }
 
   const genderIcons = {

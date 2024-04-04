@@ -13,7 +13,8 @@ function RestroomPortal(
     setPortalView,
     portalView,
     setClickToAdd,
-    addLocation
+    addLocation,
+    loadRestrooms
   }
 ) {
   const handleRateClick = () => {
@@ -35,7 +36,11 @@ function RestroomPortal(
     {portalView === 'rate' && (
       <dialog open className="restroom-portal">
         <h2>Rate Cleanliness and/or Update Details</h2>
-        <RestroomRate restroom={restroom} onClose={onClose}/>
+        <RestroomRate
+          restroom={restroom}
+          onClose={onClose}
+          loadRestrooms={loadRestrooms}
+        />
         <button className="restroom-portal__button" onClick={onClose}>
           Close
         </button>
@@ -44,7 +49,11 @@ function RestroomPortal(
     {portalView === 'add' && (
       <dialog open className="restroom-portal">
         <h2>Add New Restroom</h2>
-        <RestroomAdd onClose={onClose} addLocation={addLocation}/>
+        <RestroomAdd
+          onClose={onClose}
+          addLocation={addLocation}
+          loadRestrooms={loadRestrooms}
+        />
         <button className="restroom-portal__button" onClick={onClose}>
           Close
         </button>
@@ -53,7 +62,11 @@ function RestroomPortal(
     {portalView === 'addLocation' && (
       <dialog open className="restroom-portal">
         <h2>Add New Restroom</h2>
-        <RestroomAddLocation onClose={onClose} setClickToAdd={setClickToAdd} setPortalView={setPortalView}/>
+        <RestroomAddLocation
+          onClose={onClose}
+          setClickToAdd={setClickToAdd}
+          setPortalView={setPortalView}
+        />
         <button className="restroom-portal__button" onClick={onClose}>
           Close
         </button>
