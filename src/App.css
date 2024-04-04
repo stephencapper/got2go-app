@@ -7,7 +7,7 @@
 
 .logo {
   height: 6em;
-  padding: 1.5em;
+  width: auto;
   will-change: filter;
   transition: filter 300ms;
   text-decoration-color: #ec96a4;

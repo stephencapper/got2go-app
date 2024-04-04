@@ -40,7 +40,7 @@ const RestroomDetails = ({ restroom }) => {
         <span role="img" aria-label="Toilet Type">🚽</span> {toiletType} Toilet
       </p>
       <p>
-        <span>{genderIcons[genders.join(' ')]}</span> {genders.join(', ')}
+        <span>{genders.map((gender) => genderIcons[gender]).join(' ')}</span> {genders.join(', ')}
       </p>
       {accessible &&
         <>

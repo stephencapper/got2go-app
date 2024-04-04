@@ -1,11 +1,21 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import restroomLogo from './assets/restroom-svgrepo-com.svg';
 
 import RestroomMap from './RestroomMap';
+import RestroomPortal from './RestroomPortal';
 
 import './App.css'
 
 function App() {
+  const [showRestroomPortal, setShowRestroomPortal] = useState(false);
+  const [portalRestroom, setPortalRestroom] = useState(null);
+  const [portalView, setPortalView] = useState('details');
+
+  const onOpen = () => {
+    setShowRestroomPortal(true);
+  }
+
   const restroomsData = [
     {
       _id: '1',
@@ -52,11 +62,27 @@ function App() {
         <p>
           The app for sharing and finding restrooms
         </p>
+        <button onClick={()=>{
+          setPortalView('add');
+          onOpen();
+          }}>
+          Add a restroom
+        </button>
       </div>
-      <RestroomMap restrooms={restrooms} mapLocation={mapLocation}/>
+      <RestroomMap restrooms={restrooms} mapLocation={mapLocation} setPortalRestroom={setPortalRestroom} setPortalView={setPortalView} setShowRestroomPortal={setShowRestroomPortal}/>
       <p className="information">
         Click on a restroom for more information
       </p>
+      {showRestroomPortal && createPortal(
+        <RestroomPortal
+          onClose={() => (setShowRestroomPortal(false))}
+          restroom={portalRestroom}
+          portalRestroom={portalRestroom}
+          portalView={portalView}
+          setPortalView={setPortalView}
+        />,
+        document.getElementById('root'),
+      )}
     </>
   )
 }

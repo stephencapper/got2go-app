@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { createPortal } from 'react-dom';
 import { GrRestroom } from 'react-icons/gr';
 import {
   AdvancedMarker,
@@ -8,15 +6,15 @@ import {
 } from '@vis.gl/react-google-maps';
 
 import './RestroomPin.css'
-import RestroomPortal from './RestroomPortal';
 
-function RestroomPin({ restroom }) {
-  const [showRestroomPortal, setShowRestroomPortal] = useState(false);
+function RestroomPin({ restroom, setPortalRestroom, setPortalView, setShowRestroomPortal }) {
 
   const restroomLocation = restroom.location;
 
   const handlePinClick = () => {
     setShowRestroomPortal(true);
+    setPortalRestroom(restroom);
+    setPortalView('details');
   }
   return (
     <AdvancedMarker
@@ -29,13 +27,6 @@ function RestroomPin({ restroom }) {
         {/* children are rendered as 'glyph' of pin */}
         <GrRestroom className="restroom-icon"/>
       </Pin>
-      {showRestroomPortal && createPortal(
-        <RestroomPortal
-          onClose={() => setShowRestroomPortal(false)}
-          restroom={restroom}
-        />,
-        document.getElementById('root'),
-      )}
     </AdvancedMarker>
   )
 }

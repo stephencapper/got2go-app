@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import './RestroomPortal.css';
 import RestroomDetails from './RestroomDetails.jsx';
 import RestroomRate from './RestroomRate.jsx';
+import RestroomAdd from './RestroomAdd.jsx';
 
-function RestroomPortal({ onClose, restroom }) {
-  const [portalView, setPortalView] = useState('details');
+function RestroomPortal({ onClose, restroom, setPortalView, portalView}) {
   const handleRateClick = () => {
     setPortalView('rate');
   }
@@ -26,6 +26,15 @@ function RestroomPortal({ onClose, restroom }) {
       <dialog open className="restroom-portal">
         <h2>Rate Cleanliness and/or Update Details</h2>
         <RestroomRate restroom={restroom} onClose={onClose}/>
+        <button className="restroom-portal__button" onClick={onClose}>
+          Close
+        </button>
+      </dialog>
+    )}
+    {portalView === 'add' && (
+      <dialog open className="restroom-portal">
+        <h2>Add New Restroom</h2>
+        <RestroomAdd onClose={onClose}/>
         <button className="restroom-portal__button" onClick={onClose}>
           Close
         </button>
