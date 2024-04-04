@@ -7,7 +7,7 @@
 
 .logo {
   height: 6em;
-  padding: 1.5em;
+  width: auto;
   will-change: filter;
   transition: filter 300ms;
   text-decoration-color: #ec96a4;
@@ -23,10 +23,4 @@
 
 .information {
   color: #9a9eab;
-}
-
-.map {
-  width: 90vw;
-  height: 50vh;
-  margin: 2em 0;
 }
