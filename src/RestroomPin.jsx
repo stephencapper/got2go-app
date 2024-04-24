@@ -19,7 +19,7 @@ function RestroomPin({ restroom, setPortalRestroom, setPortalView, setShowRestro
   return (
     <AdvancedMarker
       position={restroomLocation}
-      title={'AdvancedMarker with customized pin.'}
+      title={'Click for details'}
       clickable={true}
       onClick={handlePinClick}
       >
